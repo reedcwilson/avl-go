@@ -6,7 +6,6 @@ import (
 )
 
 func TestClear(t *testing.T) {
-  fmt.Println("%d", compare(1, 2))
   if false {
     t.Error("Failure")
   }
