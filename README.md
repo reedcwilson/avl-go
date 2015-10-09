@@ -30,7 +30,6 @@ You can then use the tree like so:
 
 ### Node
 
-#### Compare
 
     func Compare(node Node) 
 
@@ -46,8 +45,6 @@ number if greater.
 
 ### Tree
 
-#### Clear
-
     func Clear()
 
 Empties the tree of all its elements.
@@ -56,7 +53,6 @@ Empties the tree of all its elements.
 
     tree.Clear() // the size should now be zero
 
-#### Delete
 
     func Delete(node Node) bool
 
@@ -71,8 +67,6 @@ no element matches the node, then Delete returns false.
     }
 
 
-#### Find
-
     func Find(node Node) (Node, error)
 
 Returns the element matching the given node. If no element matches then an error
@@ -86,8 +80,6 @@ is returned with a zero Node.
     }
 
 
-#### Height
-
     func Height() int
 
 Returns the number of levels in the tree.
@@ -100,8 +92,6 @@ Returns the number of levels in the tree.
     }
 
 
-#### Insert
-
     func Insert(node Node)
 
 Adds the given node into the tree and performs any necessary balancing.
@@ -111,8 +101,6 @@ Adds the given node into the tree and performs any necessary balancing.
     node := new(tree.Node{ 3 })
     tree.Insert(node)
 
-
-#### Largest
 
     func Largest() (Node, error)
 
@@ -127,8 +115,6 @@ error along with a zero Node.
     }
 
 
-#### Size
-
     func Size() int
 
 Returns the total number of elements in the tree.
@@ -140,7 +126,6 @@ Returns the total number of elements in the tree.
       fmt.Println("One day you might be more than a sapling")
     }
 
-#### Smallest
 
     func Smallest() (Node, error)
 
