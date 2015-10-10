@@ -31,7 +31,7 @@ You can then use the tree like so:
 ### Node
 
 
-    func Compare(node Node) 
+#### `func Compare(node Node)`
 
 Compares itself with the given node. Compare returns zero if the elements match,
 a negative number if the given node is less than the current node and a positive
@@ -45,7 +45,7 @@ number if greater.
 
 ### Tree
 
-    func Clear()
+#### `func Clear()`
 
 Empties the tree of all its elements.
 
@@ -54,7 +54,7 @@ Empties the tree of all its elements.
     tree.Clear() // the size should now be zero
 
 
-    func Delete(node Node) bool
+#### `func Delete(node Node) bool`
 
 Deletes the element in the tree that matches the given node and re-balances. If
 no element matches the node, then Delete returns false.
@@ -67,7 +67,7 @@ no element matches the node, then Delete returns false.
     }
 
 
-    func Find(node Node) (Node, error)
+#### `func Find(node Node) (Node, error)`
 
 Returns the element matching the given node. If no element matches then an error
 is returned with a zero Node.
@@ -80,7 +80,7 @@ is returned with a zero Node.
     }
 
 
-    func Height() int
+#### `func Height() int`
 
 Returns the number of levels in the tree.
 
@@ -92,7 +92,7 @@ Returns the number of levels in the tree.
     }
 
 
-    func Insert(node Node)
+#### `func Insert(node Node)`
 
 Adds the given node into the tree and performs any necessary balancing.
 
@@ -102,7 +102,7 @@ Adds the given node into the tree and performs any necessary balancing.
     tree.Insert(node)
 
 
-    func Largest() (Node, error)
+#### `func Largest() (Node, error)`
 
 Returns the largest element in the tree. If the tree is empty then it returns an
 error along with a zero Node.
@@ -115,7 +115,7 @@ error along with a zero Node.
     }
 
 
-    func Size() int
+#### `func Size() int`
 
 Returns the total number of elements in the tree.
 
@@ -127,7 +127,7 @@ Returns the total number of elements in the tree.
     }
 
 
-    func Smallest() (Node, error)
+#### `func Smallest() (Node, error)`
 
 Returns the smallest element in the tree. If the tree is empty then it returns
 an error along with a zero Node.
