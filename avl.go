@@ -1,41 +1,106 @@
 package avl
 
 import (
-  "errors"
+  //"fmt"
 )
 
-type Node struct {
-}
-
+// Tree is an AVL Tree
 type Tree struct {
+  Size int
+  root *Node
 }
 
-func Clear() {
+
+// Clear sets the tree to nil and resets the size
+func (t *Tree) Clear() {
+  t.Size = 0
+  t.root = nil
 }
 
-func Delete(node Node) bool {
+
+// Delete removes the element matching the given node or false if it couldn't
+// find it
+func (t *Tree) Delete(node *Node) bool {
   return false
 }
 
-func Find(node Node) (Node, error) {
-  return Node{}, errors.New("Not Implemented")
+
+// Find returns the element matching the given node or false if it couldn't 
+// find it
+func (t *Tree) Find(node *Node) (*Node, bool) {
+  return find(t.root, node)
 }
 
-func Height() int {
-  return 0
+func find(root *Node, node *Node) (*Node, bool) {
+  // base case for no matching node
+  if root == nil {
+    return &Node{}, false
+  }
+  result := root.Value.Compare(node.Value)
+  if result == 0 {
+    return root, true
+  } else if result < 0 {
+    return find(root.left, node)
+  } else {
+    return find(root.right, node)
+  }
 }
 
-func Insert(node Node)  {
+
+// Height returns the height of the deepest level in the tree
+func (t *Tree) Height() int {
+  return height(t.root)
 }
 
-func Largest() (Node, error) {
-  return Node{}, errors.New("Not Implemented")
+func height(node *Node) int {
+  if node == nil {
+    return -1
+  }
+  leftHeight := height(node.left)
+  rightHeight := height(node.right)
+  if leftHeight > rightHeight {
+    return leftHeight + 1
+  } else {
+    return rightHeight + 1
+  }
 }
 
-func Size() int {
-  return 0
+
+// Insert adds the given node to the tree and performs any necessary rebalancing
+func (t *Tree) Insert(node *Node)  {
+  t.Size++
 }
 
-func Smallest() (Node, error) {
-  return Node{}, errors.New("Not Implemented")
+
+// Max returns the largest element in the tree or false if the tree is empty
+func (t *Tree) Max() (*Node, bool) {
+  return max(t.root)
+}
+
+func max(node *Node) (*Node, bool) {
+  if node == nil {
+    return &Node{}, false
+  }
+  if node.right == nil {
+    return node, true
+  } else {
+    return max(node.right)
+  }
+}
+
+
+// Min returns the smallest element in the tree or false if the tree is empty
+func (t *Tree) Min() (*Node, bool) {
+  return min(t.root)
+}
+
+func min(node *Node) (*Node, bool) {
+  if node == nil {
+    return &Node{}, false
+  }
+  if node.left == nil {
+    return node, true
+  } else {
+    return max(node.left)
+  }
 }

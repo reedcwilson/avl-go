@@ -28,21 +28,13 @@ You can then use the tree like so:
 
 ## API
 
-### Node
-
-#### `func Compare(node Node)`
-
-Compares itself with the given node. Compare returns zero if the elements match,
-a negative number if the given node is less than the current node and a positive
-number if greater.
-
-**Example**
-
-    n1 := new(avl.Node{ 1 })
-    n2 := new(avl.Node{ 2 })
-    result := n1.Compare(n2)  // -1
-
 ### Tree
+
+    type Tree struct {
+      Size int
+    }
+
+===
 
 #### `func Clear()`
 
@@ -54,28 +46,27 @@ Empties the tree of all its elements.
 
 ===
 
-#### `func Delete(node Node) bool`
+#### `func Delete(node *Node) bool`
 
 Deletes the element in the tree that matches the given node and re-balances. If
 no element matches the node, then Delete returns false.
 
 **Example**
 
-    node := new(tree.Node{ 3 })
+    node := new(avl.Node{ 3 })
     if !tree.Delete(node) {
       fmt.Println("Could not find a node matching your given node")
     }
 
 ===
 
-#### `func Find(node Node) (Node, error)`
+#### `func Find(node *Node) (*Node, bool)`
 
-Returns the element matching the given node. If no element matches then an error
-is returned with a zero Node.
+Returns the element matching the given node or false if no element matches.
 
 **Example**
 
-    node, err := tree.Find(new(tree.Node{ 3 }))
+    node, ok := tree.Find(new(avl.Node{ 3 }))
     if (err) {
       fmt.Println("Could not find a node matching your given node")
     }
@@ -95,52 +86,39 @@ Returns the number of levels in the tree.
 
 ===
 
-#### `func Insert(node Node)`
+#### `func Insert(node *Node)`
 
 Adds the given node into the tree and performs any necessary balancing.
 
 **Example**
 
-    node := new(tree.Node{ 3 })
+    node := new(avl.Node{ 3 })
     tree.Insert(node)
 
 ===
 
-#### `func Largest() (Node, error)`
+#### `func Max() (*Node, bool)`
 
-Returns the largest element in the tree. If the tree is empty then it returns an
-error along with a zero Node.
+Returns the maximum element in the tree. If the tree is empty then it returns
+false.
 
 **Example**
 
-    node, err := tree.Largest()
+    node, err := tree.Max()
     if err {
       fmt.Println("The tree must be empty")
     }
 
 ===
 
-#### `func Size() int`
+#### `func Min() (*Node, bool)`
 
-Returns the total number of elements in the tree.
-
-**Example**
-
-    size := tree.Size()
-    if size < 5 {
-      fmt.Println("One day you might be more than a sapling")
-    }
-
-===
-
-#### `func Smallest() (Node, error)`
-
-Returns the smallest element in the tree. If the tree is empty then it returns
-an error along with a zero Node.
+Returns the minimum element in the tree. If the tree is empty then it returns
+false
 
 **Example**
 
-    node, err := tree.Smallest()
+    node, err := tree.Min()
     if err {
       fmt.Println("The tree must be empty")
     }
