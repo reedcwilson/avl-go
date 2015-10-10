@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/reedcwilson/alv-go.svg?branch=master)](https://travis-ci.org/reedcwilson/alv-go)
 
-This is an exercise to learn the language Go. 
+This is an exercise to learn golang. 
 
 ## Usage
 
@@ -30,7 +30,6 @@ You can then use the tree like so:
 
 ### Node
 
-
 #### `func Compare(node Node)`
 
 Compares itself with the given node. Compare returns zero if the elements match,
@@ -53,6 +52,7 @@ Empties the tree of all its elements.
 
     tree.Clear() // the size should now be zero
 
+===
 
 #### `func Delete(node Node) bool`
 
@@ -66,6 +66,7 @@ no element matches the node, then Delete returns false.
       fmt.Println("Could not find a node matching your given node")
     }
 
+===
 
 #### `func Find(node Node) (Node, error)`
 
@@ -79,6 +80,7 @@ is returned with a zero Node.
       fmt.Println("Could not find a node matching your given node")
     }
 
+===
 
 #### `func Height() int`
 
@@ -91,6 +93,7 @@ Returns the number of levels in the tree.
       fmt.Println("That is a big tree at %d layers", height)
     }
 
+===
 
 #### `func Insert(node Node)`
 
@@ -101,6 +104,7 @@ Adds the given node into the tree and performs any necessary balancing.
     node := new(tree.Node{ 3 })
     tree.Insert(node)
 
+===
 
 #### `func Largest() (Node, error)`
 
@@ -114,6 +118,7 @@ error along with a zero Node.
       fmt.Println("The tree must be empty")
     }
 
+===
 
 #### `func Size() int`
 
@@ -126,6 +131,7 @@ Returns the total number of elements in the tree.
       fmt.Println("One day you might be more than a sapling")
     }
 
+===
 
 #### `func Smallest() (Node, error)`
 
