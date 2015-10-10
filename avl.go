@@ -67,8 +67,37 @@ func height(node *Node) int {
 
 
 // Insert adds the given node to the tree and performs any necessary rebalancing
-func (t *Tree) Insert(node *Node)  {
-  t.Size++
+func (t *Tree) Insert(node *Node) bool {
+  // if we don't have a root then put 'er in
+  if t.root == nil {
+    t.root = node
+    t.Size++
+    return true
+  }
+  added := insert(t.root, node)
+  if added {
+    t.Size++
+  }
+  return added
+}
+
+func insert(cur, node *Node) bool {
+  comparison := cur.Value.Compare(node.Value)
+  if comparison == 0 {
+    return false
+  } else if comparison < 0 {
+    if cur.left == nil {
+      cur.left = node
+      return true
+    }
+    return insert(cur.left, node)
+  } else {
+    if cur.right == nil {
+      cur.right = node
+      return true
+    }
+    return insert(cur.right, node)
+  }
 }
 
 
