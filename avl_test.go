@@ -78,16 +78,25 @@ func TestInsertRoot(t *testing.T)  {
     t.Error("The tree wasn't initialized correctly")
   }
   tree.Insert(&Node{ Value: testVal(8) })
-  if tree.Size != 1 && tree.root.Value.Compare(testVal(8)) != 0 {
+  if tree.Size != 1 || tree.root.Value.Compare(testVal(8)) != 0 {
     t.Error("Insert didn't work")
   }
 }
 
-func TestInsert(t *testing.T) {
+func TestInsertLeft(t *testing.T) {
   tree := buildTree()
   node := &Node{ Value: testVal(8) }
   added := tree.Insert(node)
-  if !added && node.parent.Value.Compare(testVal(9)) == 0 {
+  if !added || node.parent.Value.Compare(testVal(9)) != 0 {
+    t.Error("Insert didn't work")
+  }
+}
+
+func TestInsertRight(t *testing.T) {
+  tree := buildTree()
+  node := &Node{ Value: testVal(13) }
+  added := tree.Insert(node)
+  if !added || node.parent.Value.Compare(testVal(15)) != 0 {
     t.Error("Insert didn't work")
   }
 }
@@ -147,7 +156,7 @@ func buildTree() *Tree {
   r2.left = r3
   root.right = r1
 
-  tree := &Tree{ root: root, Size: 6 }
+  tree := &Tree{ root: root, Size: 7 }
   return tree
 }
 

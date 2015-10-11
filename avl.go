@@ -87,12 +87,14 @@ func insert(cur, node *Node) bool {
     return false
   } else if comparison < 0 {
     if cur.left == nil {
+      node.parent = cur
       cur.left = node
       return true
     }
     return insert(cur.left, node)
   } else {
     if cur.right == nil {
+      node.parent = cur
       cur.right = node
       return true
     }
