@@ -1,6 +1,6 @@
 # avl-go
 
-[![Build Status](https://travis-ci.org/reedcwilson/alv-go.svg?branch=master)](https://travis-ci.org/reedcwilson/alv-go)
+[![Build Status](https://travis-ci.org/reedcwilson/avl-go.svg?branch=master)](https://travis-ci.org/reedcwilson/avl-go)
 
 This is an exercise to learn golang. 
 
