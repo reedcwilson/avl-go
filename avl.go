@@ -1,8 +1,10 @@
 package avl
 
 import (
-  //"fmt"
+  "fmt"
 )
+
+var _ = fmt.Println
 
 // Tree is an AVL Tree
 type Tree struct {
@@ -21,29 +23,42 @@ func (t *Tree) Clear() {
 // Delete removes the element matching the given node or false if it couldn't
 // find it
 func (t *Tree) Delete(node *Node) bool {
-  if t.root == nil {
-    return false
-  }
-  return del(t.root, node)
+  var found bool
+  t.root, found = del(t.root, node)
+  return found
 }
 
-func del(cur, node *Node) bool {
-  comparison := cur.Value.Compare(node.Value)
-  if comparison == 0 {
-    return false
-  } else if comparison < 0 {
-    if cur.left != nil {
-      return del(cur.left, node)
-    } else {
-      return false
-    }
-  } else {
-    if cur.right != nil {
-      return del(cur.right, node)
-    } else {
-      return false
-    }
+func del(cur, node *Node) (*Node, bool) {
+  var found bool
+  // we didn't find it
+  if cur == nil {
+    return cur, false
   }
+  comparison := cur.Value.Compare(node.Value)
+  // search on the left if the node is less than the current
+  if comparison < 0 {
+    cur.left, found = del(cur.left, node)
+  // search on the right if the node is greater than the current
+  } else if comparison > 0 {
+    cur.right, found = del(cur.right, node)
+  // otherwise we found it
+  } else {
+    // when we don't have a left branch
+    if cur.left == nil {
+      cur.right.parent = cur.parent
+      return cur.right, true
+    // when we don't have a right branch
+    } else if cur.right == nil {
+      cur.left.parent = cur.parent
+      return cur.left, true
+    }
+    // find the max on the left subtree
+    temp, _ := max(cur.left)
+    cur.left.parent = temp
+    temp.left = cur.left
+    return temp, true
+  }
+  return cur, found
 }
 
 

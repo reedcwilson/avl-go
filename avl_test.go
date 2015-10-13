@@ -19,9 +19,27 @@ func TestClear(t *testing.T) {
 
 // DELETE
 
-func TestDelete(t *testing.T) {
-  if false {
-    t.Error("Failure")
+func TestDeleteRoot(t *testing.T) {
+  tree := buildTree()
+  tree.Delete(&Node{ Value: testVal(10) })
+  if tree.root.Value.Compare(testVal(9)) != 0 {
+    t.Error("Failed to delete root")
+  }
+}
+
+func TestDeleteLeft(t *testing.T) {
+  tree := buildTree()
+  tree.Delete(&Node{ Value: testVal(7) })
+  if tree.root.left.Value.Compare(testVal(3)) != 0 {
+    t.Error("Failed to delete on left")
+  }
+}
+
+func TestDeleteRight(t *testing.T) {
+  tree := buildTree()
+  tree.Delete(&Node{ Value: testVal(15) })
+  if tree.root.right.Value.Compare(testVal(17)) != 0 {
+    t.Error("Failed to delete on right")
   }
 }
 
