@@ -21,7 +21,29 @@ func (t *Tree) Clear() {
 // Delete removes the element matching the given node or false if it couldn't
 // find it
 func (t *Tree) Delete(node *Node) bool {
-  return false
+  if t.root == nil {
+    return false
+  }
+  return del(t.root, node)
+}
+
+func del(cur, node *Node) bool {
+  comparison := cur.Value.Compare(node.Value)
+  if comparison == 0 {
+    return false
+  } else if comparison < 0 {
+    if cur.left != nil {
+      return del(cur.left, node)
+    } else {
+      return false
+    }
+  } else {
+    if cur.right != nil {
+      return del(cur.right, node)
+    } else {
+      return false
+    }
+  }
 }
 
 
