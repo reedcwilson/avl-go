@@ -184,7 +184,7 @@ type testVal int
 // the implementation of Comparer
 func (t testVal) Compare(test Comparer) int {
   // assert type (ignore any errors for testing)
-  otherTest, _ := test.(testVal)
+  otherTest := test.(testVal)
   if t > otherTest {
     return -1
   } else if t < otherTest {
