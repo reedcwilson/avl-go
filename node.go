@@ -1,15 +1,18 @@
 package avl
 
-// Every value that is contained in a node must implement Comparer where < 0
-// indicates less than, 0 indicates equal and > 1 indicates greater than
-type Comparer interface {
-  Compare(Comparer) int
-}
+import (
+	"fmt"
+)
 
 type Node struct {
+  Height int
   Value Comparer
   tree Tree
-  parent *Node
   left *Node
   right *Node
 }
+
+func (n *Node) String() string {
+  return fmt.Sprint("{v:", n.Value, ",h:", n.Height, "}")
+}
+
