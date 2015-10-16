@@ -20,10 +20,28 @@ for you.
 
 *NOTE*: Although the repository is `avl-go` the package name is `avl` 
 
+You will have to make sure that the elements you wish to place in the tree
+implement a certain interface.
+
+    type Comparer interface {
+      Compare(Comparer) float64
+    }
+
+You should return a negative number if the current object is less than the
+argument, positive for greater than, and 0 for equal.
+
+For raw types you can bind a method to a declared type.
+
+    type myFloat float64
+    func (f1 myFloat) Compare(value Comparer) {
+      f2, ok := value.(myFloat) // type assertion
+      ...
+    }
+
 You can then use the tree like so:
 
     tree := new(avl.Tree)
-    tree.Insert(new(avl.Node{ 3 }))
+    tree.Insert(myFloat(24))
 
 
 ## API
@@ -46,36 +64,35 @@ Empties the tree of all its elements.
 
 ===
 
-#### `func Delete(node *Node) bool`
+#### `func Delete(value Comparer) bool`
 
-Deletes the element in the tree that matches the given node and re-balances. If
-no element matches the node, then Delete returns false.
+Deletes the element in the tree that matches the given element and re-balances. If
+no element matches the value, then Delete returns false.
 
 **Example**
 
-    node := new(avl.Node{ 3 })
-    if !tree.Delete(node) {
-      fmt.Println("Could not find a node matching your given node")
+    if !tree.Delete(myFloat(6)) {
+      fmt.Println("Could not find an element matching your given value")
     }
 
 ===
 
-#### `func Find(node *Node) (*Node, bool)`
+#### `func Find(value Comparer) (Comparer, bool)`
 
-Returns the element matching the given node or false if no element matches.
+Returns the element matching the given value or false if no element matches.
 
 **Example**
 
-    node, ok := tree.Find(new(avl.Node{ 3 }))
-    if (err) {
-      fmt.Println("Could not find a node matching your given node")
+    value, ok := tree.Find(myFloat(4))
+    if !ok {
+      fmt.Println("Could not find an elemtn matching your given value")
     }
 
 ===
 
 #### `func Height() int`
 
-Returns the number of levels in the tree.
+Returns the depth of the tree.
 
 **Example**
 
@@ -86,41 +103,40 @@ Returns the number of levels in the tree.
 
 ===
 
-#### `func Insert(node *Node)`
+#### `func Insert(value Comparer)`
 
-Adds the given node into the tree and performs any necessary balancing.
+Adds the given element into the tree and performs any necessary balancing.
 
 **Example**
 
-    node := new(avl.Node{ 3 })
-    tree.Insert(node)
+    tree.Insert(myFloat(1))
 
 ===
 
-#### `func Max() (*Node, bool)`
+#### `func Max() (Comparer, bool)`
 
 Returns the maximum element in the tree. If the tree is empty then it returns
 false.
 
 **Example**
 
-    node, err := tree.Max()
-    if err {
-      fmt.Println("The tree must be empty")
+    value, ok := tree.Max()
+    if !ok {
+      fmt.Println("The tree appears to be empty")
     }
 
 ===
 
-#### `func Min() (*Node, bool)`
+#### `func Min() (Comparer, bool)`
 
 Returns the minimum element in the tree. If the tree is empty then it returns
 false
 
 **Example**
 
-    node, err := tree.Min()
-    if err {
-      fmt.Println("The tree must be empty")
+    value, ok := tree.Min()
+    if !ok {
+      fmt.Println("The tree appears to be empty")
     }
 
 

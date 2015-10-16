@@ -322,7 +322,7 @@ func buildTree() *Tree {
 type testVal float64
 
 // the implementation of Comparer
-func (t testVal) Compare(test Comparer) int {
+func (t testVal) Compare(test Comparer) float64 {
 	// assert type (ignore any errors for testing)
 	otherTest := test.(testVal)
 	if t < otherTest {
