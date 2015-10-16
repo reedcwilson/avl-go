@@ -143,7 +143,7 @@ func (t *Tree) Height() int {
 
 func height(node *Node) int {
 	if node == nil {
-		return -1
+		return 0
 	}
 	return node.Height
 }
@@ -155,7 +155,7 @@ func updateHeight(node *Node) {
 // Insert adds the given node to the tree and performs any necessary rebalancing
 func (t *Tree) Insert(value Comparer) bool {
 	var added bool
-	t.root, added = insert(t.root, &Node{Value: value})
+  t.root, added = insert(t.root, &Node{Value: value, Height:1})
 	if added {
 		t.Size++
 	}
@@ -183,27 +183,21 @@ func insert(cur, node *Node) (*Node, bool) {
 		updateHeight(cur)
 		// do the rebalancing
 		bal := balance(cur)
-		fmt.Println(cur, bal, cur.left)
 		// left left case
-		if bal > 1 && cur.Value.Compare(cur.left.Value) < 0 {
-			fmt.Println("left left")
+		if bal > 1 && node.Value.Compare(cur.left.Value) < 0 {
 			return rotateRight(cur), found
 		}
 		// right right case
-		if bal < -1 && cur.Value.Compare(cur.right.Value) > 0 {
-			fmt.Println(cur.Value, cur.right.Value)
-			fmt.Println("right right")
+		if bal < -1 && node.Value.Compare(cur.right.Value) > 0 {
 			return rotateLeft(cur), found
 		}
 		// left right case
-		if bal > 1 && cur.Value.Compare(cur.left.Value) > 0 {
-			fmt.Println("left right")
+		if bal > 1 && node.Value.Compare(cur.left.Value) > 0 {
 			cur.left = rotateLeft(cur.left)
 			return rotateRight(cur), found
 		}
 		// right left case
-		if bal < -1 && cur.Value.Compare(cur.right.Value) < 0 {
-			fmt.Println("right left")
+		if bal < -1 && node.Value.Compare(cur.right.Value) < 0 {
 			cur.right = rotateRight(cur.right)
 			return rotateLeft(cur), found
 		}
